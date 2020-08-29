@@ -1,10 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { Alert } from "react-native";
 import Loading from "./Loading";
-import Weather from "./Weather";
 import * as Location from "expo-location";
-import { Alert, AsyncStorage } from "react-native";
 import axios from "axios";
+import Weather from "./Weather";
 
 const API_KEY = "8f56b5b5ae2f10d97adecbe137430d90";
 
@@ -26,7 +25,6 @@ export default class extends React.Component {
       condition: weather[0].main,
       temp,
     });
-    // console.log(data);
   };
   getLocation = async () => {
     try {
@@ -35,9 +33,8 @@ export default class extends React.Component {
         coords: { latitude, longitude },
       } = await Location.getCurrentPositionAsync();
       this.getWeather(latitude, longitude);
-      // this.setState({ isLoading: false });
     } catch (error) {
-      Alert.alert("Can't finy you", "So sad");
+      Alert.alert("Can't find you.", "So sad");
     }
   };
   componentDidMount() {
